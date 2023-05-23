@@ -1,0 +1,61 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["airbnb"],
+  "plugins": ["babel", "import", "jsx-a11y", "react", "prettier"],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "requireConfigFile": false,
+    "sourceType": "module",
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    },
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "arrow-body-style": "off",
+    "no-plusplus": "off",
+    "max-len": ["error", 100, 2, { "ignoreUrls": true }],
+    "no-console": "warn",
+    "no-alert": "warn",
+    "no-param-reassign": "off",
+    "radix": "off",
+    "prefer-destructuring": "off",
+    "react/no-find-dom-node": "off",
+    "react/no-did-mount-set-state": "off",
+    "react/no-unused-prop-types": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-one-expression-per-line": "off",
+    "jsx-a11y/anchor-is-valid": ["error", { "components": ["Link"], "specialLink": ["to"] }],
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "required": {
+          "every": ["id"]
+        }
+      }
+    ],
+    "object-curly-newline": "off",
+    "react/prop-types": [0],
+    "react/state-in-constructor": [1, "never"],
+    "react/destructuring-assignment": [0],
+    "jsx-a11y/no-autofocus": [0],
+    "react/jsx-props-no-spreading": [0],
+    "react/forbid-prop-types": [0],
+    "react/sort-comp": [0],
+    "linebreak-style": [0],
+    "react/static-property-placement": [0],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  }
+}
