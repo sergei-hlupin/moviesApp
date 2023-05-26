@@ -21,7 +21,7 @@
   "rules": {
     "arrow-body-style": "off",
     "no-plusplus": "off",
-    "max-len": ["error", 100, 2, { "ignoreUrls": true }],
+    "max-len": ["error", 300, 2, { "ignoreUrls": true }],
     "no-console": "warn",
     "no-alert": "warn",
     "no-param-reassign": "off",
@@ -51,6 +51,9 @@
     "react/sort-comp": [0],
     "linebreak-style": [0],
     "react/static-property-placement": [0],
+    "no-return-await": "off",
+    "camelcase": "off",
+    "operator-linebreak": "off",
     "prettier/prettier": [
       "error",
       {
