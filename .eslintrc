@@ -54,6 +54,7 @@
     "no-return-await": "off",
     "camelcase": "off",
     "operator-linebreak": "off",
+    "class-methods-use-this": "off",
     "prettier/prettier": [
       "error",
       {

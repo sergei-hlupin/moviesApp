@@ -1,35 +1,78 @@
 import React, { Component } from 'react';
+import { Pagination, Empty, Alert, Spin, Space } from 'antd';
 import Swapi from '../Swapi/Swapi';
-
 import MoviesList from '../MoviesList/MoviesList';
+import InputField from '../InputField/InputField';
 
 class AppMovies extends Component {
   swapi = new Swapi();
 
   state = {
     moviesList: [],
+    isLoading: true,
+    query: 'return',
+    notFound: false,
+    numberPage: 1,
+    isError: false,
+    totalPages: 0,
   };
 
-  constructor() {
-    super();
+  componentDidMount() {
     this.getMovies();
   }
 
-  getMovies() {
+  getMovies = () => {
+    const { query, numberPage } = this.state;
     this.swapi
-      .getResource(
-        'https://api.themoviedb.org/3/search/movie?api_key=6a1dd28e4c4724aa0ef6fcf4bb1d3815&query=return',
-      )
+      .searchMovies(query, numberPage)
       .then((res) => {
-        console.log(res.results);
-        this.setState({ moviesList: res.results });
-      });
-  }
+        if (res.results.length === 0) {
+          this.setState({ notFound: true });
+        } else {
+          this.setState({ moviesList: res.results, isLoading: false, totalPages: res.total_pages });
+        }
+      })
+      .catch(() => this.setState({ isLoading: false, isError: true }));
+  };
+
+  onQuery = (title) => {
+    this.setState({ query: title }, () => this.getMovies());
+  };
+
+  onChangePage = (page) => {
+    this.setState({ numberPage: page }, () => this.getMovies());
+  };
 
   render() {
+    const { moviesList, isLoading, notFound, isError, totalPages, numberPage } = this.state;
+    const error = isError ? (
+      <Alert message="" description="произошла ошибка, обновите страницу" type="info" />
+    ) : null;
+    const notFoundFilms = notFound ? <Empty /> : <MoviesList movies={moviesList} />;
+    const spin =
+      isLoading && !isError ? (
+        <Spin tip="Loading...">
+          <Alert message="" description="Loading content." type="info" />
+        </Spin>
+      ) : null;
+    const pagination =
+      !notFound && !isLoading ? (
+        <Pagination
+          defaultCurrent={1}
+          current={numberPage}
+          total={totalPages * 10}
+          onChange={(page) => this.onChangePage(page)}
+        />
+      ) : null;
     return (
       <div className="main">
-        <MoviesList movies={this.state.moviesList} />
+        <InputField onQuery={this.onQuery} />
+        <Space direction="vertical" align="center">
+          {error}
+          {notFoundFilms}
+          {spin}
+          {pagination}
+        </Space>
       </div>
     );
   }

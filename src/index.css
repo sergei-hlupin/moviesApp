@@ -13,3 +13,6 @@ body {
   margin-left: 10px;
   margin-right: 10px;
 }
+.main input {
+  margin-bottom: 32px;
+}
