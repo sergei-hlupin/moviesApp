@@ -1,8 +1,18 @@
 import React from 'react';
 import format from 'date-fns/format';
+import RateStar from '../RateStar/RateStar';
 import './Movie.css';
 
-function Movie({ title, overview, backdrop_path, release_date }) {
+function Movie({
+  title,
+  overview,
+  backdrop_path,
+  release_date,
+  genre_ids,
+  genresList,
+  id,
+  guestSessionId,
+}) {
   let date = 'No release date is specified';
   if (release_date) {
     date = format(new Date(release_date), 'MMMM dd, yyyy');
@@ -16,16 +26,30 @@ function Movie({ title, overview, backdrop_path, release_date }) {
   if (overview) {
     newOverview = `${overview.replace(/^(.{150}[^\s]*).*/, '$1')}  ...`;
   }
+  const genre = [];
+  genre_ids.forEach((item1) => {
+    return genresList.forEach((item2) => {
+      if (item2.id === item1) {
+        genre.push(item2);
+      }
+    });
+  });
+
   return (
     <div className="card">
       <div>
         <img src={imgPath} alt="" width={180} height={280} />
       </div>
       <div className="card-description">
-        <h4>{title}</h4>
-        <span>{date}</span>
-        <p>genre_ids</p>
+        <h5 className="title">{title}</h5>
+        <span className="data">{date}</span>
+        <div className="genres">
+          {genre.map((item) => {
+            return <span key={item.id}>{item.name}</span>;
+          })}
+        </div>
         <p>{newOverview}</p>
+        <RateStar id={id} guestSessionId={guestSessionId} />
       </div>
     </div>
   );

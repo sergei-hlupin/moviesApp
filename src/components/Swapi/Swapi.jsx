@@ -22,6 +22,39 @@ class Swapi {
     const result = await this.getDataFromServer(url);
     return result;
   };
+
+  getRatedMovies = async (guestSessionToken, pageNumber) => {
+    const url = `${this.baseUrl}guest_session/${guestSessionToken}/rated/movies?api_key=${this.apiKey}&page=${pageNumber}`;
+    const result = await this.getDataFromServer(url);
+    return result;
+  };
+
+  guestSession = async () => {
+    const url = `${this.baseUrl}authentication/guest_session/new?api_key=${this.apiKey}`;
+    const result = await this.getDataFromServer(url);
+    return result;
+  };
+
+  getGenresList = async () => {
+    const url = `${this.baseUrl}genre/movie/list?api_key=${this.apiKey}`;
+    const result = await this.getDataFromServer(url);
+    return result;
+  };
+
+  setRating = async (moveiId, guestSessionToken, value) => {
+    const body = {
+      value,
+    };
+    const url = `${this.baseUrl}movie/${moveiId}/rating?api_key=${this.apiKey}&guest_session_id=${guestSessionToken}`;
+    await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      body: JSON.stringify(body),
+    }).catch((err) => {
+      // eslint-disable-next-line no-console
+      console.error('Возникла проблема с fetch запросом: ', err.message);
+    });
+  };
 }
 
 export default Swapi;

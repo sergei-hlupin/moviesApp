@@ -4,8 +4,42 @@
 }
 .card img {
   margin-right: 19px;
+  width: 183px;
+  height: 281px;  
+  background: lightgray 50% / cover no-repeat;
 }
 .card-description {
   display: flex;
   flex-direction: column;
+}
+.title {
+  color: #000;
+  font-size: 20px;
+  font-family: Inter UI;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+}
+.genres span {
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 12px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 46px;
+  height: 20px;  
+  border-radius: 2px;
+  border: 1px solid #d9d9d9;
+  background: #fafafa;
+  margin-right: 12px;
+  padding: 2px;
+}
+.data {
+  color: #827e7e;
+  font-size: 12px;
+  font-family: Inter UI;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
 }

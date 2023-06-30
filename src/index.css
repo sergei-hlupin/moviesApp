@@ -16,3 +16,7 @@ body {
 .main input {
   margin-bottom: 32px;
 }
+.header {
+  display: flex;
+  justify-content: center;
+}
