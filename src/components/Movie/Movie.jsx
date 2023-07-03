@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import format from 'date-fns/format';
 import RateStar from '../RateStar/RateStar';
 import './Movie.css';
+import GenresContext from '../GenresContext/GenresContext';
 
 function Movie({
   title,
@@ -9,8 +10,8 @@ function Movie({
   backdrop_path,
   release_date,
   genre_ids,
-  genresList,
   id,
+  popularity,
   guestSessionId,
 }) {
   let date = 'No release date is specified';
@@ -26,6 +27,7 @@ function Movie({
   if (overview) {
     newOverview = `${overview.replace(/^(.{150}[^\s]*).*/, '$1')}  ...`;
   }
+  const genresList = useContext(GenresContext);
   const genre = [];
   genre_ids.forEach((item1) => {
     return genresList.forEach((item2) => {
@@ -34,21 +36,41 @@ function Movie({
       }
     });
   });
+  let colorRate = '#E90000';
+  if (popularity > 0 && popularity < 3) {
+    colorRate = '#E90000';
+  }
+  if (popularity > 3 && popularity < 5) {
+    colorRate = '#E97E00';
+  }
+  if (popularity > 5 && popularity < 7) {
+    colorRate = '#E9D100';
+  }
+  if (popularity > 7) {
+    colorRate = '#66E900';
+  }
 
   return (
     <div className="card">
-      <div>
-        <img src={imgPath} alt="" width={180} height={280} />
-      </div>
-      <div className="card-description">
-        <h5 className="title">{title}</h5>
-        <span className="data">{date}</span>
-        <div className="genres">
-          {genre.map((item) => {
-            return <span key={item.id}>{item.name}</span>;
-          })}
+      <div className="card-wraper">
+        <img src={imgPath} alt="фото" />
+        <div className="card-description">
+          <h5 className="title">
+            {title}
+            <span style={{ borderColor: colorRate }} className="color-rate">
+              {popularity.toFixed(1)}
+            </span>
+          </h5>
+          <span className="data">{date}</span>
+          <div className="genres">
+            {genre.map((item) => {
+              return <span key={item.id}>{item.name}</span>;
+            })}
+          </div>
         </div>
-        <p>{newOverview}</p>
+      </div>
+      <div className="card-overview">
+        <p className="overview">{newOverview}</p>
         <RateStar id={id} guestSessionId={guestSessionId} />
       </div>
     </div>

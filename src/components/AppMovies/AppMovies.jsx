@@ -4,6 +4,7 @@ import Swapi from '../Swapi/Swapi';
 import MoviesList from '../MoviesList/MoviesList';
 import InputField from '../InputField/InputField';
 import Header from '../Header/Header';
+import GenresContext from '../GenresContext/GenresContext';
 
 class AppMovies extends Component {
   swapi = new Swapi();
@@ -19,7 +20,8 @@ class AppMovies extends Component {
     genresList: [],
     guestSessionId: '',
     ratedFilm: [],
-    TabPane: 1,
+    tabPane: 1,
+    width: window.innerWidth,
   };
 
   componentDidMount() {
@@ -30,7 +32,16 @@ class AppMovies extends Component {
     }
     this.getMovies();
     this.getGenres();
+    window.addEventListener('resize', this.updateWindowDimensions);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions = () => {
+    this.setState({ width: window.innerWidth });
+  };
 
   createGuestSession = () => {
     this.swapi.guestSession().then((res) => {
@@ -82,22 +93,27 @@ class AppMovies extends Component {
   };
 
   onChangePage = (page) => {
-    const { tab } = this.state.TabPane;
-    if (tab === '1') {
-      this.setState({ moviesList: [], numberPage: page }, () => this.getMovies());
-    }
-    if (tab === '2') {
-      this.setState({ numberPage: page }, () => this.getRatedMovies());
-    }
+    const { tabPane } = this.state;
+    this.setState(
+      {
+        numberPage: page,
+      },
+      () => {
+        if (tabPane === 1) {
+          this.getMovies();
+        } else {
+          this.getRatedMovies();
+        }
+      },
+    );
   };
 
   onChangeTab = (key) => {
     if (key === '1') {
-      this.setState({ TabPane: key, numberPage: 1 });
-      this.getMovies();
+      this.setState({ tabPane: Number(key), numberPage: 1 }, () => this.getMovies());
     }
     if (key === '2') {
-      this.setState({ TabPane: key, numberPage: 1 }, () => this.getRatedMovies());
+      this.setState({ tabPane: Number(key), numberPage: 1 }, () => this.getRatedMovies());
     }
   };
 
@@ -110,8 +126,9 @@ class AppMovies extends Component {
       isError,
       totalPages,
       numberPage,
-      TabPane,
+      tabPane,
       ratedFilm,
+      width,
     } = this.state;
 
     const error = isError ? (
@@ -126,11 +143,12 @@ class AppMovies extends Component {
         genresList={genresList}
         moviesList={moviesList}
         ratedFilm={ratedFilm}
-        TabPane={TabPane}
+        tabPane={tabPane}
+        width={width}
       />
     );
 
-    const search = TabPane === 1 ? <InputField onQuery={this.onQuery} /> : null;
+    const search = tabPane === 1 ? <InputField onQuery={this.onQuery} /> : null;
 
     const spin =
       isLoading && !isError ? (
@@ -151,14 +169,16 @@ class AppMovies extends Component {
 
     return (
       <div className="main">
-        <Header onChangeTab={this.onChangeTab} />
-        {search}
-        <Space direction="vertical" align="center">
-          {error}
-          {notFoundFilms}
-          {spin}
-          {pagination}
-        </Space>
+        <GenresContext.Provider value={genresList}>
+          <Header onChangeTab={this.onChangeTab} />
+          {search}
+          <Space direction="vertical" align="center">
+            {error}
+            {notFoundFilms}
+            {spin}
+            {pagination}
+          </Space>
+        </GenresContext.Provider>
       </div>
     );
   }

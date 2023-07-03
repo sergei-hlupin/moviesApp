@@ -2,15 +2,16 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import Movie from '../Movie/Movie';
 
-function MoviesList({ moviesList, genresList, guestSessionId, ratedFilm, TabPane }) {
-  const dataMovie = TabPane === 1 ? moviesList : ratedFilm;
+function MoviesList({ moviesList, guestSessionId, ratedFilm, tabPane, width }) {
+  const dataMovie = tabPane === 1 ? moviesList : ratedFilm;
+  const spanSize = width > 1010 ? 12 : 24;
+  const gutterSize = spanSize === 12 ? 32 : 20;
   return (
-    <Row gutter={[37, 32]}>
+    <Row gutter={[37, gutterSize]}>
       {dataMovie.map((item) => {
-        <Col span={12} />;
         return (
-          <Col key={item.id} span={12}>
-            <Movie {...item} genresList={genresList} guestSessionId={guestSessionId} />
+          <Col key={item.id} span={spanSize}>
+            <Movie {...item} guestSessionId={guestSessionId} />
           </Col>
         );
       })}

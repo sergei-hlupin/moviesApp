@@ -1,24 +1,56 @@
 .card {
+  position: relative;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+@media (max-width: 1010px) {
+  .card {
+    flex-direction: column;
+  }
+}
+.card-wraper {
+  display: flex;
+  width: 100%;
+}
 .card img {
-  margin-right: 19px;
+  margin-right: 18px;
   width: 183px;
-  height: 281px;  
+  height: 281px;
   background: lightgray 50% / cover no-repeat;
+}
+@media (max-width: 1010px) {
+  .card img {
+    width: 60px;
+    height: 90px;
+    max-width: 100%;
+    max-height: 100%;
+    margin-left: 10px;
+    margin-top: 6px;
+  }
 }
 .card-description {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
+
 .title {
+  margin: 0;
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
   color: #000;
   font-size: 20px;
   font-family: Inter UI;
   font-style: normal;
   font-weight: 400;
   line-height: 28px;
+}
+.genres {
+  display: flex;
+  flex-wrap: wrap;
 }
 .genres span {
   color: rgba(0, 0, 0, 0.65);
@@ -27,13 +59,25 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  width: 46px;
-  height: 20px;  
+  min-width: 46px;
+  height: 20px;
   border-radius: 2px;
   border: 1px solid #d9d9d9;
   background: #fafafa;
   margin-right: 12px;
+  margin-bottom: 10px;
   padding: 2px;
+}
+.overview {
+  min-height: 130px;
+  margin: 0;
+  margin-right: 20px;
+  font-size: 12px;
+  font-family: Inter UI;
+  font-style: normal;
+  color: #000;
+  font-weight: 400;
+  line-height: 22px;
 }
 .data {
   color: #827e7e;
@@ -42,4 +86,43 @@
   font-style: normal;
   font-weight: 400;
   line-height: 22px;
+}
+.color-rate {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  border: 2px solid #e9d100;
+  margin-right: 9px;
+  margin-left: 9px;
+  color: #000;
+  font-size: 12px;
+  font-family: Inter UI;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 25px;
+  text-align: center;
+  vertical-align: middle;
+}
+.card-overview {
+  position: absolute;
+  width: 228px;
+  top: 100px;
+  right: 20px;
+}
+@media (max-width: 1010px) {
+  .card-overview {
+    position: static;
+    width: auto;
+    margin: 0 10px;
+  }
+}
+.card .ant-rate {
+  font-size: 14px;
+}
+@media (max-width: 1010px) {
+  .card .ant-rate {
+    margin-left: 140px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
 }
