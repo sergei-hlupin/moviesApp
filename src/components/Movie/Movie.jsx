@@ -53,21 +53,21 @@ function Movie({
 
   return (
     <div className="card">
-      <div className="card-wraper">
+      <div className="card-img">
         <img src={imgPath} alt="фото" />
-        <div className="card-description">
-          <h5 className="title">
-            {title}
-            <span style={{ borderColor: colorRate }} className="color-rate">
-              {popularity.toFixed(1)}
-            </span>
-          </h5>
-          <span className="data">{date}</span>
-          <div className="genres">
-            {genre.map((item) => {
-              return <span key={item.id}>{item.name}</span>;
-            })}
-          </div>
+      </div>
+      <div className="card-description">
+        <h5 className="title">
+          {title}
+          <span style={{ borderColor: colorRate }} className="color-rate">
+            {popularity.toFixed(1)}
+          </span>
+        </h5>
+        <span className="data">{date}</span>
+        <div className="genres">
+          {genre.map((item) => {
+            return <span key={item.id}>{item.name}</span>;
+          })}
         </div>
       </div>
       <div className="card-overview">
