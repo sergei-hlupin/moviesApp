@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'antd';
+import PropTypes from 'prop-types';
 import Movie from '../Movie/Movie';
 
 function MoviesList({ moviesList, guestSessionId, ratedFilm, tabPane, width }) {
@@ -18,5 +19,13 @@ function MoviesList({ moviesList, guestSessionId, ratedFilm, tabPane, width }) {
     </Row>
   );
 }
+
+MoviesList.propTypes = {
+  moviesList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  guestSessionId: PropTypes.string.isRequired,
+  ratedFilm: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tabPane: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+};
 
 export default MoviesList;

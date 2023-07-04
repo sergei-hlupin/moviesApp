@@ -5,6 +5,7 @@ import MoviesList from '../MoviesList/MoviesList';
 import InputField from '../InputField/InputField';
 import Header from '../Header/Header';
 import GenresContext from '../GenresContext/GenresContext';
+import NetworkState from '../NetworkState/NetworkState';
 
 class AppMovies extends Component {
   swapi = new Swapi();
@@ -22,6 +23,7 @@ class AppMovies extends Component {
     ratedFilm: [],
     tabPane: 1,
     width: window.innerWidth,
+    network: false,
   };
 
   componentDidMount() {
@@ -117,6 +119,10 @@ class AppMovies extends Component {
     }
   };
 
+  onNetworkState = () => {
+    this.setState((prevState) => ({ network: !prevState.network }));
+  };
+
   render() {
     const {
       moviesList,
@@ -129,6 +135,7 @@ class AppMovies extends Component {
       tabPane,
       ratedFilm,
       width,
+      network,
     } = this.state;
 
     const error = isError ? (
@@ -167,9 +174,13 @@ class AppMovies extends Component {
         />
       ) : null;
 
+    const isNetwork = network ? <Alert className="alert alert-net" message="нет сети" /> : null;
+
     return (
       <div className="main">
         <GenresContext.Provider value={genresList}>
+          <NetworkState onNetworkState={this.onNetworkState} />
+          {isNetwork}
           <Header onChangeTab={this.onChangeTab} />
           {search}
           <Space direction="vertical" align="center">

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import format from 'date-fns/format';
+import PropTypes from 'prop-types';
 import RateStar from '../RateStar/RateStar';
 import './Movie.css';
 import GenresContext from '../GenresContext/GenresContext';
@@ -76,5 +77,15 @@ function Movie({
     </div>
   );
 }
+
+Movie.propTypes = {
+  title: PropTypes.string.isRequired,
+  overview: PropTypes.string.isRequired,
+  release_date: PropTypes.string.isRequired,
+  genre_ids: PropTypes.arrayOf(PropTypes.number).isRequired,
+  id: PropTypes.number.isRequired,
+  popularity: PropTypes.number.isRequired,
+  guestSessionId: PropTypes.string.isRequired,
+};
 
 export default Movie;

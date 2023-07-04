@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import { Rate } from 'antd';
+import PropTypes from 'prop-types';
 import Swapi from '../Swapi/Swapi';
 
 class RateStar extends Component {
+  static defaultProps = {
+    onChange: () => {},
+  };
+
+  static propTypes = {
+    onChange: PropTypes.func,
+  };
+
   swapi = new Swapi();
 
   state = {

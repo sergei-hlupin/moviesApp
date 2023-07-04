@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tabs } from 'antd';
+import PropTypes from 'prop-types';
 
 const items = [
   {
@@ -19,5 +20,13 @@ function Header({ onChangeTab }) {
     </div>
   );
 }
+
+Header.defaultProps = {
+  onChangeTab: () => {},
+};
+
+Header.propTypes = {
+  onChangeTab: PropTypes.func,
+};
 
 export default Header;
