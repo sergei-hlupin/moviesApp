@@ -31,3 +31,7 @@ body {
   display: flex;
   justify-content: center;
 }
+.ant-space {
+  display: flex;
+  justify-content: center;
+}

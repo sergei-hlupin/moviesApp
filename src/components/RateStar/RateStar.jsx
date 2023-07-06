@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Rate } from 'antd';
 import PropTypes from 'prop-types';
-import Swapi from '../Swapi/Swapi';
+import Swapi from '../../services/Swapi/Swapi';
+import UseLocalStorage from '../../services/UseLocalStorage/UseLocalStorage';
 
 class RateStar extends Component {
   static defaultProps = {
@@ -14,12 +15,14 @@ class RateStar extends Component {
 
   swapi = new Swapi();
 
+  UseLocalStorage = new UseLocalStorage();
+
   state = {
     starNumber: '',
   };
 
   onChange = (value) => {
-    localStorage.setItem(this.props.id, value);
+    this.UseLocalStorage.setValue(this.props.id, value);
     this.setState({ starNumber: value });
     this.swapi.setRating(this.props.id, this.props.guestSessionId, value);
   };
@@ -29,7 +32,7 @@ class RateStar extends Component {
       <span>
         <Rate
           onChange={this.onChange}
-          defaultValue={localStorage.getItem(this.props.id) || this.state.starNumber}
+          defaultValue={this.UseLocalStorage.getId(this.props.id) || this.state.starNumber}
           count={10}
         />
       </span>

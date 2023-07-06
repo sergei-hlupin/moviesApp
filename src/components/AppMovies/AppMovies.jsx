@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Pagination, Empty, Alert, Spin, Space } from 'antd';
-import Swapi from '../Swapi/Swapi';
+import Swapi from '../../services/Swapi/Swapi';
 import MoviesList from '../MoviesList/MoviesList';
 import InputField from '../InputField/InputField';
 import Header from '../Header/Header';
 import GenresContext from '../GenresContext/GenresContext';
-import NetworkState from '../NetworkState/NetworkState';
+import NetworkState from '../../lib/NetworkState';
+import UseLocalStorage from '../../services/UseLocalStorage/UseLocalStorage';
 
 class AppMovies extends Component {
   swapi = new Swapi();
+
+  UseLocalStorage = new UseLocalStorage();
 
   state = {
     moviesList: [],
@@ -27,10 +30,10 @@ class AppMovies extends Component {
   };
 
   componentDidMount() {
-    if (!localStorage.getItem('guestSessionId')) {
+    if (!this.UseLocalStorage.getId('guestSessionId')) {
       this.createGuestSession();
     } else {
-      this.setState({ guestSessionId: localStorage.getItem('guestSessionId') });
+      this.setState({ guestSessionId: this.UseLocalStorage.getId('guestSessionId') });
     }
     this.getMovies();
     this.getGenres();
