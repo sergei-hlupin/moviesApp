@@ -17,8 +17,6 @@ class Swapi {
   };
 
   searchMovies = async (searchQuery, pageNumber) => {
-    // const url = `${this.baseUrl}search/movie?&query=${searchQuery}&page=${pageNumber}`;
-
     const queries = {
       query: searchQuery,
       page: pageNumber,

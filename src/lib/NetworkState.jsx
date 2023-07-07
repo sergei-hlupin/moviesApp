@@ -1,10 +1,19 @@
-function NetworkState(onNetworkState) {
+import React, { useState } from 'react';
+import { Alert } from 'antd';
+
+function NetworkState() {
+  const [network, setNetwork] = useState(false);
+
   window.onoffline = () => {
-    onNetworkState();
+    setNetwork(() => !network);
   };
   window.ononline = () => {
-    onNetworkState();
+    setNetwork(() => network);
   };
+
+  const isNetwork = network ? <Alert className="alert alert-net" message="нет сети" /> : null;
+
+  return { isNetwork };
 }
 
 export default NetworkState;
