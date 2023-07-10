@@ -35,3 +35,14 @@ body {
   display: flex;
   justify-content: center;
 }
+.network {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  height: 200px;
+  background-color: grey;
+  color: black;
+  margin-top: 200px;
+}

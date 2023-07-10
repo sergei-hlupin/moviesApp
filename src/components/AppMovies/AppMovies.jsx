@@ -5,7 +5,7 @@ import MoviesList from '../MoviesList/MoviesList';
 import InputField from '../InputField/InputField';
 import Header from '../Header/Header';
 import GenresContext from '../GenresContext/GenresContext';
-// import NetworkState from '../../lib/NetworkState';
+import NetworkState from '../NetworkState/NetworkState';
 import UseLocalStorage from '../../services/UseLocalStorage/UseLocalStorage';
 
 class AppMovies extends Component {
@@ -174,7 +174,7 @@ class AppMovies extends Component {
     return (
       <div className="main">
         <GenresContext.Provider value={genresList}>
-          {/* <NetworkState /> */}
+          <NetworkState />
           <Header onChangeTab={this.onChangeTab} />
           {search}
           <Space direction="vertical" align="center">
