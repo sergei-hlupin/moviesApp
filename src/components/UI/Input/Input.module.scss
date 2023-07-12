@@ -1,0 +1,24 @@
+.label {
+  display: flex;
+  align-items: center;
+  width: 142px;
+  height: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.input {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #9abbce;
+  border-radius: 2px;
+  margin-right: 10px;
+}
+.span {
+  display: block;
+  color: #4a4a4a;
+  font-family: Open Sans;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
